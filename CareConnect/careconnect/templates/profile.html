@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile - CareConnect</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'appointments' %}">Book Appointment</a>
+        <a href="{% url 'active_appointments' %}">Active Appointments</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+    <hr>
+    <div class="container">
+        <h2>Profile</h2>
+        <p><strong>Name:</strong> {{ user.patientdetails.name }}</p>
+        <p><strong>Age:</strong> {{ user.patientdetails.age }}</p>
+        <p><strong>Gender:</strong> {{ user.patientdetails.gender }}</p>
+        <p><strong>Contact:</strong> {{ user.patientdetails.contact }}</p>
+        <p><strong>Address:</strong> {{ user.patientdetails.address }}</p>
+
+        <h3>Appointment History</h3>
+        <ul>
+            {% for appointment in appointments %}
+                <li>
+                    {{ appointment.date }} {{ appointment.time }} with Dr. {{ appointment.doctor.name }} ({{ appointment.status }})
+                </li>
+            {% empty %}
+                <li>No appointments found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
